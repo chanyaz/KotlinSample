@@ -6,6 +6,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -58,9 +59,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        when (item.itemId) {
-            R.id.action_settings -> return true
-            else -> return super.onOptionsItemSelected(item)
+        return when (item.itemId) {
+            R.id.action_settings -> true
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -126,14 +127,19 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun showTopView(list: List<Any>) {
         isLoading = false
-        recycler_view.adapter = NewsRecyclerListAdapter(this, list)
+        recycler_view.adapter = NewsRecyclerListAdapter(this, list).apply {
+            callback = { _, _, position, type ->
+                if (type == NewsRecyclerListAdapter.ITEM_TYPE) {
+                    Log.e("yj", "---click---" + position)
+                }
+            }
+        }
     }
 
     override fun addList(startPosition: Int, size: Int) {
         isLoading = false
         recycler_view.adapter.notifyItemRangeInserted(startPosition, size)
     }
-
 
     override fun stopRefresh() {
         refresh_layout.isRefreshing = false

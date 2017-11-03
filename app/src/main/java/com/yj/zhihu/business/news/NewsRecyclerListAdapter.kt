@@ -20,7 +20,7 @@ class NewsRecyclerListAdapter(context: Context, data: List<Any>) : BaseRecyclerV
 
     companion object {
         private val TITLE_TYPE = 10
-        private val ITEM_TYPE = 11
+        val ITEM_TYPE = 11
 
         class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val contentView: TextView = itemView.findViewById(R.id.content)

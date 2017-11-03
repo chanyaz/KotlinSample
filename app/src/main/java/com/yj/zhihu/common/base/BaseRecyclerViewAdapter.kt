@@ -12,7 +12,7 @@ import android.view.ViewGroup
 abstract class BaseRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder>(protected var context: Context,
                                                                         protected var mData: List<T>) : RecyclerView.Adapter<VH>() {
 
-    var callback: ((view: View, item: T, position: Int) -> Unit)? = null
+    var callback: ((view: View, item: T, position: Int, type: Int) -> Unit)? = null
 
     companion object {
         private val HEADER_TYPE = 100
@@ -116,7 +116,7 @@ abstract class BaseRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder>(protecte
      * @param position
      */
     protected fun bindItemViewClickListener(vh: VH, item: T, position: Int) {
-        vh.itemView.setOnClickListener({ callback?.invoke(it, item, position) })
+        vh.itemView.setOnClickListener({ callback?.invoke(it, item, position, getItemViewType(position)) })
     }
 
 
