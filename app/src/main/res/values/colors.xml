@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="yj_transparent">#00000000</color>
+    <color name="yj_black1">#FF333333</color>
+    <color name="yj_black2">#FF666666</color>
+    <color name="yj_black3">#FF999999</color>
+    <color name="yj_gray1">#F8F8F8</color>
+    <color name="yj_gray2">#CCCCCC</color>
+    <color name="yj_gray3">#BBBBBB</color>
+    <color name="yj_gray4">#B4B4B4</color>
+    <color name="yj_gray5">#F6F6F6</color>
+    <color name="yj_gray6">#F4F5F6</color>
+
+    <color name="yj_white">#FFFFFF</color>
+    <color name="yj_red">#FF7830</color>
+    <color name="yj_blue">#005FAC</color>
+</resources>
