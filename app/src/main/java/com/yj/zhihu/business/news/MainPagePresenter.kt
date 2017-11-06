@@ -13,38 +13,37 @@ class MainPagePresenter(private var view: MainPageContract.View) : MainPageContr
     private val list = ArrayList<Any>()
 
     override fun refresh() {
-        MainPageRepository.loadTopNews()
-                .compose(view.viewAvoidStateLoss())
-                .subscribe({ result ->
-                    nextDay = DateTimeUtils.getCurrentTimeMillis()
-                    list.clear()
-                    if (result.stories != null) {
-                        view.setState(Consts.STATE_OK)
-                        list.add(0, view.getStringByRes(R.string.yj_today_news))
-                        list.addAll(result.stories!!)
-                    } else {
-                        view.setState(Consts.STATE_EMPTY)
-                    }
-                    view.showTopView(list)
-                    view.stopRefresh()
-                }, {})
+        loadTop(true)
     }
 
     override fun loadTopData() {
         view.setState(Consts.STATE_LOADING)
+        loadTop(false)
+    }
+
+    private fun loadTop(refresh: Boolean) {
         MainPageRepository.loadTopNews()
                 .compose(view.viewAvoidStateLoss())
                 .subscribe({ newsResult ->
                     list.clear()
                     if (newsResult.stories != null) {
                         view.setState(Consts.STATE_OK)
-                        list.add(0, view.getStringByRes(R.string.yj_today_news))
+                        list.add(newsResult.topStories!!)
+                        list.add(view.getStringByRes(R.string.yj_today_news))
                         list.addAll(newsResult.stories!!)
                     } else {
                         view.setState(Consts.STATE_EMPTY)
                     }
                     view.showTopView(list)
-                }, { view.setState(Consts.STATE_ERROR) })
+                    if (refresh) {
+                        view.stopRefresh()
+                    }
+                }, {
+                    if (refresh) {
+                        view.stopRefresh()
+                    }
+                    view.setState(Consts.STATE_ERROR)
+                })
     }
 
     override fun loadNextDay() {

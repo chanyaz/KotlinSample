@@ -1,6 +1,7 @@
 package com.yj.zhihu.data
 
 import android.support.annotation.Keep
+import com.google.gson.annotations.SerializedName
 import com.yj.zhihu.data.base.Page
 
 /**
@@ -10,7 +11,8 @@ import com.yj.zhihu.data.base.Page
 data class NewsResult(
         var date: String,
         var stories: List<NewsItem>?,
-        var top_stories: List<NewsItem>?
+        @SerializedName("top_stories")
+        var topStories: List<NewsItem>?
 ) : Page {
     override fun getPageCount(): Int {
         return stories?.size ?: 0

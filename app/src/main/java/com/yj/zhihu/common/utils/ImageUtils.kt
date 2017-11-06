@@ -19,7 +19,7 @@ object ImageUtils {
     }
 
     @SuppressLint("CheckResult")
-    fun loadImage(context: Context, url: String?, imageView: ImageView, @DrawableRes placeHolder: Int = R.drawable.yj_bg_place_holder) {
+    fun loadImage(context: Context, url: String?, imageView: ImageView, centerCrop: Boolean = false, @DrawableRes placeHolder: Int = R.drawable.yj_bg_place_holder) {
         val requestManager = Glide.with(imageView)
         requestManager.clear(imageView)
         imageView.setTag(R.id.yj_load_image_flag, null)
@@ -32,6 +32,7 @@ object ImageUtils {
             } else {
                 option.placeholder(R.drawable.yj_bg_place_holder)
             }
+            if (centerCrop) option = option.centerCrop()
             // todo error drawable
             option = option.error(R.drawable.yj_bg_place_holder)
             requestManager.load(url).apply(option).into(imageView)

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LoopCircleIndicator">
+        <attr name="yj_lci_radio" format="dimension" />
+        <attr name="yj_lci_margin" format="dimension" />
+        <attr name="yj_lci_drawable" format="reference" />
+        <attr name="yj_lci_drawable_unselected" format="reference" />
+    </declare-styleable>
+</resources>

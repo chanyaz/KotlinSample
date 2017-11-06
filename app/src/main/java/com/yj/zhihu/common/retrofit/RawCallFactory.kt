@@ -25,21 +25,7 @@ class RawCallFactory private constructor() {
                     builder.writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                     builder.readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                     builder.cache(Cache(File(context.filesDir, "responses"), 10 * 1024 * 1024))
-
-//                    if (Ln.isDebugEnabled()) {
-//                        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-//                        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
-//                        builder.interceptors().add(loggingInterceptor);
-//                    }
-//                    builder.cache(new Cache(new File(context.getFilesDir(), "responses"), CONST_10 * CONST_1024 * CONST_1024));
-//                    if (DevSettingStore.isDevChannel()) {
-//                        builder.interceptors().add(new DevUrlInterceptor(context));
-//                    }
-//                    builder.interceptors().add(new NetStatisticsInterceptor());
-//                    // 无网络时，缓存一天
-//                    builder.interceptors().add(new LocalCacheInterceptor(context, DEFAULT_MAX_LOCAL_CACHE_SECONDS));
-//                    // 有网络时，缓存时间
-//                    builder.networkInterceptors().add(0, new NetCacheInterceptor(DEFAULT_MAX_NET_CACHE_SECONDS));
+                    // todo common cache
                     factory = builder.build();
                 }
             }
