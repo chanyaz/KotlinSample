@@ -8,18 +8,15 @@ import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import com.trello.rxlifecycle2.android.RxLifecycleAndroid
 import com.yj.zhihu.R
-import com.yj.zhihu.common.views.LoopCircleIndicator
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.yj_layout_view_banner.view.*
 import java.util.concurrent.TimeUnit
 
 /**
  * @author yuanjian 17/11/3.
  */
 class NewsBanner : RelativeLayout {
-
-    private lateinit var loopCircleIndicator: LoopCircleIndicator
-    private lateinit var viewPager: ViewPager
 
     constructor(context: Context) : super(context) {
         init(context)
@@ -35,18 +32,16 @@ class NewsBanner : RelativeLayout {
 
     private fun init(context: Context) {
         LayoutInflater.from(context).inflate(R.layout.yj_layout_view_banner, this, true)
-        viewPager = findViewById(R.id.loop_view_pager)
-        loopCircleIndicator = findViewById(R.id.lopper_indicator)
     }
 
     fun hasData(): Boolean {
-        return viewPager.adapter != null
+        return loop_view_pager.adapter != null
     }
 
     fun setData(pagerAdapter: PagerAdapter, currentItem: Int) {
-        viewPager.adapter = pagerAdapter
-        viewPager.currentItem = currentItem
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        loop_view_pager.adapter = pagerAdapter
+        loop_view_pager.currentItem = currentItem
+        loop_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
 
@@ -54,21 +49,20 @@ class NewsBanner : RelativeLayout {
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                loopCircleIndicator.scrollIndicator(position, positionOffset)
+                lopper_indicator.scrollIndicator(position, positionOffset)
             }
         })
-        loopCircleIndicator.initIndicator(pagerAdapter.count)
+        lopper_indicator.initIndicator(pagerAdapter.count)
         startAutoScroll()
     }
 
     private fun startAutoScroll() {
-//        if (disposable == null || disposable!!.isDisposed) {
         Observable.interval(5, 5, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifecycleAndroid.bindView(this))
                 .subscribe({
-                    viewPager.currentItem = (viewPager.currentItem + 1) % viewPager.adapter.count
+                    loop_view_pager.currentItem = (loop_view_pager.currentItem + 1) % loop_view_pager.adapter.count
                 })
     }
 

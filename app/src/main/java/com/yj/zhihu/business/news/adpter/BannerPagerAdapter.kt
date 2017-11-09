@@ -5,11 +5,10 @@ import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import com.yj.zhihu.R
 import com.yj.zhihu.common.utils.ImageUtils
 import com.yj.zhihu.data.NewsItem
+import kotlinx.android.synthetic.main.yj_layout_banner_item.view.*
 
 /**
  * @author yuanjian 17/11/3.
@@ -21,9 +20,8 @@ class BannerPagerAdapter(val context: Context, private var items: List<NewsItem>
 
     override fun instantiateItem(container: ViewGroup?, position: Int): Any {
         val view = layoutInflater.inflate(R.layout.yj_layout_banner_item, container, false)
-        val imageView = view.findViewById<ImageView>(R.id.banner_img)
-        ImageUtils.loadImage(context, items[position].image, imageView, true)
-        view.findViewById<TextView>(R.id.desc).text = items[position].title
+        ImageUtils.loadImage(context, items[position].image,  view.banner_img, true)
+        view.desc.text = items[position].title
         container?.addView(view)
         view.setOnClickListener {
             callback.invoke(items[position]) }

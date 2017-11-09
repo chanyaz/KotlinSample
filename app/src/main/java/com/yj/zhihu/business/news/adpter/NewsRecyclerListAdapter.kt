@@ -13,6 +13,9 @@ import com.yj.zhihu.common.base.BaseRecyclerViewAdapter
 import com.yj.zhihu.common.utils.ImageUtils
 import com.yj.zhihu.common.utils.Ln
 import com.yj.zhihu.data.NewsItem
+import kotlinx.android.synthetic.main.yj_layout_news_banner.view.*
+import kotlinx.android.synthetic.main.yj_layout_news_item.view.*
+import kotlinx.android.synthetic.main.yj_layout_news_title.view.*
 
 
 /**
@@ -26,16 +29,16 @@ class NewsRecyclerListAdapter(context: Context, data: List<Any>) : BaseRecyclerV
         private val BANNER_TYPE = 12
 
         class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val contentView: TextView = itemView.findViewById(R.id.content)
-            val imageView: ImageView = itemView.findViewById(R.id.image)
+            val contentView: TextView = itemView.content
+            val imageView: ImageView = itemView.image
         }
 
         class NewsTitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val title: TextView = itemView.findViewById(R.id.title)
+            val title: TextView = itemView.title
         }
 
         class BannerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val banner: NewsBanner = itemView.findViewById(R.id.banner)
+            val banner: NewsBanner = itemView.banner
         }
     }
 
