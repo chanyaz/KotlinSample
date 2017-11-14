@@ -17,7 +17,6 @@ import com.yj.zhihu.common.extensions.hide
 import com.yj.zhihu.common.extensions.show
 import com.yj.zhihu.common.utils.Consts
 import com.yj.zhihu.data.NewsItem
-import io.reactivex.ObservableTransformer
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -85,10 +84,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 }
             }
         })
-    }
-
-    override fun <T> viewAvoidStateLoss(): ObservableTransformer<T, T> {
-        return bindDestroy()
     }
 
     override fun setState(state: Int) {

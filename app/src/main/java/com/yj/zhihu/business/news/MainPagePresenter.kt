@@ -23,7 +23,7 @@ class MainPagePresenter(private var view: MainPageContract.View) : MainPageContr
 
     private fun loadTop(refresh: Boolean) {
         MainPageRepository.loadTopNews()
-                .compose(view.viewAvoidStateLoss())
+                .compose(view.bindDestroy())
                 .subscribe({ newsResult ->
                     list.clear()
                     if (newsResult.stories != null) {
@@ -49,7 +49,7 @@ class MainPagePresenter(private var view: MainPageContract.View) : MainPageContr
     override fun loadNextDay() {
         view.setState(Consts.STATE_LOADING_NEXT)
         MainPageRepository.loadNextDayNews(DateTimeUtils.getDayString(nextDay))
-                .compose(view.viewAvoidStateLoss())
+                .compose(view.bindDestroy())
                 .subscribe({ result ->
                     nextDay -= DateTimeUtils.ONE_DAY
                     if (result.stories != null) {
