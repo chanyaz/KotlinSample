@@ -8,13 +8,15 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
+import com.yj.zhihu.business.detail.NewsDetailActivity
 import com.yj.zhihu.business.news.MainPageContract
 import com.yj.zhihu.business.news.MainPagePresenter
 import com.yj.zhihu.business.news.adpter.NewsRecyclerListAdapter
 import com.yj.zhihu.common.base.BaseActivity
+import com.yj.zhihu.common.extensions.hide
+import com.yj.zhihu.common.extensions.show
 import com.yj.zhihu.common.utils.Consts
-import com.yj.zhihu.common.utils.Ln
+import com.yj.zhihu.data.NewsItem
 import io.reactivex.ObservableTransformer
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -92,12 +94,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun setState(state: Int) {
         when (state) {
             Consts.STATE_OK -> {
-                recycler_view.visibility = View.VISIBLE
-                progress.visibility = View.GONE
+                recycler_view.show()
+                progress.hide()
             }
             Consts.STATE_LOADING -> {
-                recycler_view.visibility = View.GONE
-                progress.visibility = View.VISIBLE
+                recycler_view.hide()
+                progress.show()
             }
         }
     }
@@ -105,9 +107,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun showTopView(list: List<Any>) {
         isLoading = false
         recycler_view.adapter = NewsRecyclerListAdapter(this, list).apply {
-            callback = { _, _, position, type ->
+            callback = { _, item, _, type ->
                 if (type == NewsRecyclerListAdapter.ITEM_TYPE) {
-                    Ln.e("---click---$position")
+                    startActivity(NewsDetailActivity.buildIntent((item as NewsItem).id))
                 }
             }
         }

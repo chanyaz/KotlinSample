@@ -1,5 +1,7 @@
 package com.yj.zhihu.common.retrofit
 
+import com.yj.zhihu.data.NewsDetail
+import com.yj.zhihu.data.NewsExtra
 import com.yj.zhihu.data.NewsResult
 import com.yj.zhihu.data.ThemeResult
 import io.reactivex.Observable
@@ -19,4 +21,11 @@ interface YjService {
 
     @GET("api/4/news/before/{date}")
     fun getHistoryNews(@Path("date") date: String): Observable<NewsResult>
+
+    @GET("api/4/news/{id}")
+    fun getNewsDetail(@Path("id") id: Long): Observable<NewsDetail>
+
+    @GET("api/4/story-extra/{id}")
+    fun getNewsExtra(@Path("id") id: Long): Observable<NewsExtra>
+
 }

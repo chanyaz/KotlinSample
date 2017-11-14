@@ -2,6 +2,8 @@ package com.yj.zhihu.common.retrofit
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.yj.zhihu.data.NewsDetail
+import com.yj.zhihu.data.NewsExtra
 import com.yj.zhihu.data.NewsResult
 import com.yj.zhihu.data.ThemeResult
 import io.reactivex.Observable
@@ -52,5 +54,13 @@ object YjRetrofit : YjService {
 
     override fun getHistoryNews(date: String): Observable<NewsResult> {
         return createService().getHistoryNews(date)
+    }
+
+    override fun getNewsDetail(id: Long): Observable<NewsDetail> {
+        return createService().getNewsDetail(id)
+    }
+
+    override fun getNewsExtra(id: Long): Observable<NewsExtra> {
+        return createService().getNewsExtra(id)
     }
 }
